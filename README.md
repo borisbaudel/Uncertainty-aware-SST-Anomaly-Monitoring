@@ -179,3 +179,61 @@ python diag.py \
   --outdir ./outputs_2019_2020
 
 ## ▶️ DATA
+
+## 📦 Data Availability (External Sources)
+
+Due to their size (≈ 450–500 MB per year), the raw satellite datasets used in this project
+are **not included in this GitHub repository**.
+
+All data are **publicly available** from the NOAA Physical Sciences Laboratory (PSL)
+and can be downloaded directly from the official THREDDS file server.
+
+---
+
+### 🌊 Daily SST Observations (NOAA OISST)
+
+The analysis relies on daily mean Sea Surface Temperature (SST) fields from
+**NOAA OISST v2.x**.
+
+For each year \\(Y\\), the required file is:
+
+$$
+\texttt{sst.day.mean.Y.nc}
+$$
+
+**Direct download links (HTTP):**
+
+- **2019**  
+  https://psl.noaa.gov/thredds/fileServer/Datasets/noaa.oisst.v2.highres/sst.day.mean.2019.nc
+
+- **2020**  
+  https://psl.noaa.gov/thredds/fileServer/Datasets/noaa.oisst.v2.highres/sst.day.mean.2020.nc
+
+- **2022 (example test year)**  
+  https://psl.noaa.gov/thredds/fileServer/Datasets/noaa.oisst.v2.highres/sst.day.mean.2022.nc
+
+Each file contains daily SST fields on a \\(0.25^\circ \\times 0.25^\circ\\) global grid.
+
+---
+
+### 📆 Daily Climatology (Baseline 1991–2020)
+
+To remove the seasonal cycle, SST anomalies are computed relative to a daily climatology
+constructed over the 1991–2020 baseline.
+
+The corresponding file is:
+
+$$
+\texttt{sst.day.ltm.1991--2020.nc}
+$$
+
+**Direct download link:**
+
+https://psl.noaa.gov/thredds/fileServer/Datasets/noaa.oisst.v2.highres/sst.day.ltm.1991-2020.nc
+
+---
+
+### 📁 Expected Local Data Structure
+
+After manual download, files should be placed in a local cache directory, for example:
+
