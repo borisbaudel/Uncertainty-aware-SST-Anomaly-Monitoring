@@ -9,8 +9,6 @@ The methodology combines:
 - trend and extreme-event diagnostics,
 - fully reproducible visual and machine-readable outputs.
 
----
-
 ## 📌 Region and Period
 
 - **Region (example)**  
@@ -19,8 +17,6 @@ The methodology combines:
 
 - **Analysis window**  
   2019-01-01 → 2020-12-31
-
----
 
 ## 📡 Data
 
@@ -35,7 +31,6 @@ The pipeline uses **NOAA Optimum Interpolation Sea Surface Temperature (OISST v2
 Spatial resolution: \\(0.25^\circ \\times 0.25^\circ\\)  
 Temporal resolution: daily
 
----
 
 ## 🌐 Regional Mean SST
 
@@ -43,14 +38,10 @@ For each day \\(t\\), the regional mean SST is computed as a latitude-weighted a
 
 $$
 \overline{T}(t)
-=
-\frac{\sum_{i,j} T(t,\phi_i,\lambda_j)\,\cos(\phi_i)}
-     {\sum_{i,j} \cos(\phi_i)}
+= \frac{\sum_{i,j} T(t,\phi_i,\lambda_j)\,\cos(\phi_i)} {\sum_{i,j} \cos(\phi_i)}
 $$
 
 where \\(\phi\\) denotes latitude and \\(\lambda\\) longitude.
-
----
 
 ## 📆 Daily Climatology and Anomalies
 
@@ -61,12 +52,10 @@ The daily climatology \\(T_{\mathrm{clim}}(d)\\) is defined as the mean SST for 
 The SST anomaly time series is then:
 
 $$
-A(t) = \overline{T}(t) - T_{\mathrm{clim}}(d(t))
+A(t) = T(t) - T_{\mathrm{clim}}(d(t))
 $$
 
 This removes the seasonal cycle and isolates interannual and intraseasonal variability.
-
----
 
 ## 📐 State-Space Model (Local Level)
 
@@ -85,8 +74,6 @@ where:
 - \\(x_t\\) is the latent climate signal,
 - \\(q\\) is the process noise variance,
 - \\(r\\) is the observation noise variance.
-
----
 
 ## 🔁 Kalman Filter (Forward Pass)
 
@@ -111,8 +98,6 @@ $$
 $$
 P_{t|t} = (1 - K_t)\,P_{t|t-1}
 $$
-
----
 
 ## 🔄 Riccati Equation (Scalar Form)
 
@@ -139,45 +124,29 @@ P =
 \frac{-q + \sqrt{q^2 + 4rq}}{2}
 $$
 
----
-
 ## ⏪ RTS Smoother (Backward Pass)
 
 To exploit all observations \\(y_{1:T}\\), a **Rauch–Tung–Striebel smoother** is applied.
 
 **Smoother gain**
-$$
-G_t = \frac{P_{t|t}}{P_{t|t} + q}
-$$
+$$G_t = \frac{P_{t|t}}{P_{t|t} + q} $$
 
 **Backward recursion**
-$$
-\hat{x}_{t|T}
-=
-\hat{x}_{t|t}
-+
-G_t\left(\hat{x}_{t+1|T} - \hat{x}_{t+1|t}\right)
-$$
+
+$$ \hat{x}_{t|T} = \hat{x}_{t|t} + G_t\left(\hat{x}_{t+1|T} - \hat{x}_{t+1|t}\right) $$
 
 $$
-P_{t|T}
-=
-P_{t|t}
-+
-G_t^2\left(P_{t+1|T} - P_{t+1|t}\right)
+P_{t|T} = P_{t|t} + G_t^2\left(P_{t+1|T} - P_{t+1|t}\right)
 $$
 
 The smoothed uncertainty is given by \\(\sigma_t = \sqrt{P_{t|T}}\\).
-
----
 
 ## 📈 Trend and Extreme Event Diagnostics
 
 ### Linear Trend
 A linear trend is fitted as:
-$$
-A(t) = \alpha + \beta t + \varepsilon(t)
-$$
+
+$$ A(t) = \alpha + \beta t + \varepsilon(t) $$
 
 Reported in \\(^\circ\mathrm{C}\\) per decade.
 
@@ -187,8 +156,6 @@ Reported in \\(^\circ\mathrm{C}\\) per decade.
 
 Each event is characterized by duration, peak anomaly, and mean anomaly.
 
----
-
 ## 📊 Outputs
 
 The pipeline produces:
@@ -197,8 +164,7 @@ The pipeline produces:
 - `timeseries_kalman.png` — anomalies + RTS smoothing + uncertainty
 - `timeseries_threshold.png` — rolling mean + P90 threshold
 - histograms of anomaly distributions
-
----
+  
 
 ## ▶️ Example Usage (Offline)
 
@@ -211,3 +177,5 @@ python diag.py \
   --start 2019-01-01 --end 2020-12-31 \
   --climatology-file ./oisst_cache/sst.day.ltm.1991-2020.nc \
   --outdir ./outputs_2019_2020
+
+## ▶️ DATA
