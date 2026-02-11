@@ -9,6 +9,17 @@ The methodology combines:
 - trend and extreme-event diagnostics,
 - fully reproducible visual and machine-readable outputs.
 
+
+<img width="2022" height="1002" alt="image" src="https://github.com/user-attachments/assets/be2a2601-044e-4d54-a646-ebd656d17fad" />
+
+
+<img width="1338" height="990" alt="image" src="https://github.com/user-attachments/assets/54638033-a645-475e-9b52-e814272eea90" />
+
+
+<img width="1346" height="980" alt="image" src="https://github.com/user-attachments/assets/6efaaf84-eecf-49b0-8e44-14755b5bd501" />
+
+<img width="1316" height="994" alt="image" src="https://github.com/user-attachments/assets/19906f57-292e-4808-8b7e-8911b1c82c40" />
+
 ## 📌 Region and Period
 
 - **Region (example)**  
